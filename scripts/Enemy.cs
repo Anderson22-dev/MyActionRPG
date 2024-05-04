@@ -3,49 +3,43 @@ using System;
 
 public partial class Enemy : CharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+	public const float Speed = 150.0f;
+	public bool PlayerDetected = false;
+	public AnimatedSprite2D AnimatedSprite;
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	public override void _Ready(){
+		AnimatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
 
-		// Add the gravity.
-		if (!IsOnFloor())
-			velocity.Y += gravity * (float)delta;
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JumpVelocity;
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		if (PlayerDetected)
 		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+			Position += (Player.PlayerPosition - Position)/Speed;
+			AnimatedSprite.Play("walk");
 
-		Velocity = velocity;
-		MoveAndSlide();
+			if(Player.PlayerPosition.X < Position.X)AnimatedSprite.FlipH = true;
+			else AnimatedSprite.FlipH = false;
+			
+		}
+		else AnimatedSprite.Play("idle");
+		
+
 	}
+
+	private void OnDetectionAreaBodyEntered(Node2D body)
+	{
+		if (body.Name == "Player") PlayerDetected = true;
+	}
+
+
+	private void OnDetectionAreaBodyExited(Node2D body)
+	{
+		PlayerDetected = false;
+	}
+	
 }
 
 
-private void OnDetectionAreaBodyEntered(Node2D body)
-{
-	// Replace with function body.
-}
 
-
-private void OnDetectionAreaBodyExited(Node2D body)
-{
-	// Replace with function body.
-}

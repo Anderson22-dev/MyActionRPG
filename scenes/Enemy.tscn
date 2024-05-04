@@ -130,7 +130,7 @@ animations = [{
 radius = 70.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kas0a"]
-radius = 9.0
+radius = 6.0
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_uyxv0")
@@ -141,14 +141,12 @@ animation = &"idle"
 frame_progress = 0.956682
 
 [node name="DetectionArea" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_vbugn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_kas0a")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="OnDetectionAreaBodyEntered"]

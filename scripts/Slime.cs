@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Enemy : CharacterBody2D
+public partial class Slime : CharacterBody2D
 {
 	public const float Speed = 150.0f;
 	public bool PlayerDetected = false;

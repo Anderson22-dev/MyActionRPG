@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dyl72tjrauwc7"]
+[gd_scene load_steps=22 format=3 uid="uid://dyl72tjrauwc7"]
 
 [ext_resource type="Texture2D" uid="uid://c3x56gahsjygu" path="res://sprites/characters/slime.png" id="1_8s3uc"]
-[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_uyxv0"]
+[ext_resource type="Script" path="res://scripts/Slime.cs" id="1_n7fpo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yd8gw"]
 atlas = ExtResource("1_8s3uc")
@@ -132,8 +132,11 @@ radius = 70.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kas0a"]
 radius = 6.0
 
-[node name="Enemy" type="CharacterBody2D"]
-script = ExtResource("1_uyxv0")
+[sub_resource type="CircleShape2D" id="CircleShape2D_xtr8g"]
+radius = 9.0
+
+[node name="Slime" type="CharacterBody2D"]
+script = ExtResource("1_n7fpo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vx642")
@@ -148,6 +151,12 @@ shape = SubResource("CircleShape2D_vbugn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_kas0a")
+
+[node name="SlimeHitbox" type="Area2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlimeHitbox"]
+shape = SubResource("CircleShape2D_xtr8g")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="OnDetectionAreaBodyEntered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="OnDetectionAreaBodyExited"]

@@ -38,6 +38,10 @@ public partial class Slime : CharacterBody2D
 	{
 		PlayerDetected = false;
 	}
+
+	private void SlimeAttack(){
+
+	}
 	
 }
 

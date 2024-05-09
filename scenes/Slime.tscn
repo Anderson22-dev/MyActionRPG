@@ -130,7 +130,7 @@ animations = [{
 radius = 70.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kas0a"]
-radius = 6.0
+radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xtr8g"]
 radius = 9.0
@@ -149,7 +149,7 @@ frame_progress = 0.956682
 shape = SubResource("CircleShape2D_vbugn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_kas0a")
 
 [node name="SlimeHitbox" type="Area2D" parent="."]

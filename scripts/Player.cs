@@ -6,6 +6,8 @@ public partial class Player : CharacterBody2D
 	public const float Speed = 100.0f;
 	public string CurrentDirection = "idle";
 	public static Vector2 PlayerPosition;
+	public bool SlimeAttackCooldown = true;
+	public bool SlimeIsInAttackRange = false;
 	public override void _Ready()
 	{
 
@@ -14,6 +16,7 @@ public partial class Player : CharacterBody2D
 	{
 		PlayerPosition = Position;
 		PlayerMovement(delta);
+		IsHited();
 	}
 	public void PlayerMovement(double delta){
 		Vector2 velocity = Velocity;
@@ -93,4 +96,25 @@ public partial class Player : CharacterBody2D
 		}
 
 	}
+	
+	private void OnPlayerHitboxBodyEntered(Node2D body)
+	{
+		if(body.HasMethod("SlimeAttack")) SlimeIsInAttackRange = true;
+		GD.Print("Player hitbox body entered");
+	}
+	private void OnPlayerHitboxBodyExited(Node2D body)
+	{
+		if(body.HasMethod("SlimeAttack")) SlimeIsInAttackRange = false;
+	}
+
+	private void IsHited(){
+		if(SlimeIsInAttackRange && SlimeAttackCooldown) GD.Print("Slime attack");
+		
+	}
 }
+
+
+
+
+
+
